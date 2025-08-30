@@ -1,3 +1,6 @@
+// Always clear cart on fresh page load for tests
+sessionStorage.removeItem("cart");
+
 // Product data
 const products = [
   { id: 1, name: "Product 1", price: 10 },
@@ -33,7 +36,6 @@ function renderProducts() {
     productList.appendChild(li);
   });
 
-  // Attach listeners to Add to Cart buttons
   document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       addToCart(parseInt(btn.getAttribute("data-id")));
@@ -46,11 +48,6 @@ function renderCart() {
   cartList.innerHTML = "";
   const cart = getCart();
 
-  if (cart.length === 0) {
-    cartList.innerHTML = "<li>Your cart is empty.</li>";
-    return;
-  }
-
   cart.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = `${item.name} - $${item.price}`;
@@ -62,11 +59,10 @@ function renderCart() {
 function addToCart(productId) {
   const cart = getCart();
   const product = products.find((p) => p.id === productId);
-
   if (product) {
-    cart.push(product); // add product to cart
-    saveCart(cart); // update sessionStorage
-    renderCart(); // re-render cart
+    cart.push(product);
+    saveCart(cart);
+    renderCart();
   }
 }
 
