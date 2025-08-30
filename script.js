@@ -33,6 +33,7 @@ function renderProducts() {
     productList.appendChild(li);
   });
 
+  // Add button listeners
   document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       addToCart(parseInt(btn.getAttribute("data-id")));
@@ -57,7 +58,7 @@ function addToCart(productId) {
   const cart = getCart();
   const product = products.find((p) => p.id === productId);
   if (product) {
-    cart.push(product);
+    cart.push(product); // allow duplicates
     saveCart(cart);
     renderCart();
   }
