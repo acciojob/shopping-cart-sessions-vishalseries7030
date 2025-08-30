@@ -1,6 +1,3 @@
-// Always clear cart on fresh page load for tests
-sessionStorage.removeItem("cart");
-
 // Product data
 const products = [
   { id: 1, name: "Product 1", price: 10 },
